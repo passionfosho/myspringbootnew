@@ -1,5 +1,6 @@
 package lx.edu.springboot.dao;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,37 +19,30 @@ import org.springframework.stereotype.Component;
 
 import lx.edu.springboot.vo.AddrBookVO;
 
-
 @Component
 public class AddrBookDAO {
-
+	
 	@Autowired
 	SqlSession session;
-
+	
 	public int insertDB(AddrBookVO ab) throws Exception {
 		return session.insert("insertDB", ab);
 	}
-
+	
 	public List<AddrBookVO> getDBList() throws Exception {
 		return session.selectList("getDBList");
 	}
-
+	
 	public AddrBookVO getDB(int abId) throws Exception {
 		return session.selectOne("getDB", abId);
 	}
-
-	public boolean deleteDB(int abId) throws Exception {
-		System.out.println("deleteDB 함수 호출" + abId);
-		boolean message = false;
-		int deletedAmount = session.delete("deleteDB", abId);
-		session.commit();
-		if (deletedAmount > 0) {
-			message = true;
-		}
-		return message;
+	
+	public int updateDB(AddrBookVO ab) throws Exception {
+		return session.update("updateDB", ab);
 	}
-
-	public int updateDB(AddrBookVO vo) throws Exception {
-		return session.update("updateDB", vo);
+	
+	public int deleteDB(int abId) throws Exception {
+		return session.insert("deleteDB", abId);
 	}
+	
 }
